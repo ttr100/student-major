@@ -16,6 +16,7 @@ function renderMajorRows(majors) {
     .map(function (major) {
       return `<tr>
       <td>${major.majorName}</td>
+      <td>${major.majorSemester}</td>
     </tr>`;
     })
     .join("");
@@ -77,6 +78,13 @@ function renderMajorForm() {
             <form method="post" action="/create-major">
                 <label class="name">Major</label>
                 <input name="majorName" class="input" type="text" placeholder="Major">
+
+                <div class="field">
+                  <label class="label">Semester</label>
+                  <div class="control">
+                    <input name="majorSemester" class="input" type="text" placeholder="Semester">
+                  </div>
+                </div>
                 
                 <button type="submit">Save</button>
             </form>
@@ -123,6 +131,7 @@ function renderIndex(data) {
         <table class="table">
           <thead>
               <th>Major</th>
+              <th>Semesters</th>
           <thead>
           <tbody>
               ${renderMajorRows(majors)}
