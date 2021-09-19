@@ -26,7 +26,7 @@ app.post("/create-major", (req, res) => {
   console.log('CREATE-MAJOR');
   let alreadyExist = false;
   for(let i=0; i<majors.length; i++){
-    if(majors[i].majorName === req.body.majorName){
+    if(majors[i].majorName.toUpperCase() === req.body.majorName.toUpperCase()){
       alreadyExist = true;
       break;
     }
