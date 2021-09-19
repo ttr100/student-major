@@ -24,7 +24,23 @@ app.post('/create-student', function(req, res){
 
 app.post("/create-major", (req, res) => {
   console.log('CREATE-MAJOR');
-  majors.push(req.body);
+  let alreadyExist = false;
+  for(let i=0; i<majors.length; i++){
+    if(majors[i].majorName === req.body.majorName){
+      alreadyExist = true;
+      break;
+    }
+  }
+
+  // kalau nama major sudah ada, console.log('SUDAH ADA');
+  // kalau tidak, push ke majors
+  // req.body = {majorName: '', majorSemester: aasfa}
+  if(alreadyExist){
+    console.log('SUDAH ADA');
+  }
+  else{
+    majors.push(req.body);
+  }
   res.redirect("/");
 });
 
