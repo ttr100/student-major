@@ -55,7 +55,7 @@ function renderStudentForm(majors) {
         <label class="label">Major</label>
         <div class="control">
           <div class="select">
-            <select name="majorIndex" />
+            <select name="majorIndex">
                 ${majors.map((major, index) => {
                   return `<option value="${index}">${major.majorName}</option>`;
                 })}
