@@ -1,10 +1,10 @@
-function renderStudentRows(students) {
+function renderStudentRows(students, majors) {
   return students
     .map(function (student) {
       return `<tr>
       <td>${student.name}</td>
       <td>${student.age}</td>
-      <td>${student.major}</td>
+      <td>${majors[student.majorIndex].majorName}</td>
       <td>${student.semester}</td>
     </tr>`;
     })
@@ -13,10 +13,16 @@ function renderStudentRows(students) {
 
 function renderMajorRows(majors) {
   return majors
-    .map(function (major) {
+    .map(function (major, index) {
       return `<tr>
-      <td>${major.majorName}</td>
-      <td>${major.majorSemester}</td>
+      <form action="/update-major" method="POST">
+        <td>
+          <input type="hidden" name="index" value="${index}" />
+          <input name="majorName" value="${major.majorName}" />
+        </td>
+        <td><input name="majorSemester" value="${major.majorSemester}" /></td>
+        <td><button type="submit">Save</button></td>
+      </form>
     </tr>`;
     })
     .join("");
@@ -123,7 +129,7 @@ function renderIndex(data) {
             <th>Semester</th>
           <thead>
         <tbody>
-          ${renderStudentRows(students)}
+          ${renderStudentRows(students, majors)}
         </tbody>
       </table>
       </div>
@@ -132,6 +138,7 @@ function renderIndex(data) {
           <thead>
               <th>Major</th>
               <th>Semesters</th>
+              <th>Action</th>
           <thead>
           <tbody>
               ${renderMajorRows(majors)}

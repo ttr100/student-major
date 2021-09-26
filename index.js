@@ -8,8 +8,18 @@ const port = 3000;
 let students = [];
 let majors = [];
 
+
+function getMajorIndex(majorName){
+  for(let i=0; i < majors.length ; i++){
+    if(majors[i].majorName === majorName){
+      return i;
+    }
+  }
+  return -1;
+}
+
+
 app.get("/", (req, res) => {
-  console.log('INDEX');
   res.send(html.renderIndex({
     students: students,
     majors: majors
@@ -17,13 +27,38 @@ app.get("/", (req, res) => {
 });
 
 app.post('/create-student', function(req, res){
-  console.log(req.body);
-  students.push(req.body);
+  let majorIndex = getMajorIndex(req.body.major);
+  let newStudent = {
+    name: req.body.name,
+    age: req.body.age,
+    semester: req.body.semester,
+    majorIndex: majorIndex  
+  }
+  students.push(newStudent);
   res.redirect('/');
 })
 
+app.post('/update-major', (req, res) => {
+  console.log(req.body);
+  let i = parseInt(req.body.index);
+  majors[i].majorName = req.body.majorName;
+  majors[i].majorSemester = req.body.majorSemester;
+
+  // search for student with majorName == originalMajorname
+  // // for eavery student found, change student.major
+
+  // for(let i=0; i < majors.length ; i++){
+  //   if(majors[i].majorName === req.body.originalName){
+  //     majors[i].majorName = req.body.majorName;
+  //     majors[i].majorSemester = req.body.majorSemester;
+  //     break;
+  //   }
+  // }
+
+  res.redirect("/");
+})
+
 app.post("/create-major", (req, res) => {
-  console.log('CREATE-MAJOR');
   let alreadyExist = false;
   for(let i=0; i<majors.length; i++){
     if(majors[i].majorName.toUpperCase() === req.body.majorName.toUpperCase()){
