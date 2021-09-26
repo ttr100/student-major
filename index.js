@@ -27,12 +27,11 @@ app.get("/", (req, res) => {
 });
 
 app.post('/create-student', function(req, res){
-  let majorIndex = getMajorIndex(req.body.major);
   let newStudent = {
     name: req.body.name,
     age: req.body.age,
     semester: req.body.semester,
-    majorIndex: majorIndex  
+    majorIndex: req.body.majorIndex
   }
   students.push(newStudent);
   res.redirect('/');
