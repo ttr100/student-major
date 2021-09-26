@@ -1,11 +1,16 @@
 function renderStudentRows(students, majors) {
   return students
     .map(function (student) {
+      let remaining = parseInt(majors[student.majorIndex].majorSemester) - parseInt(student.semester);
+      if(remaining <= 0){
+        remaining = 'overdue'
+      }
       return `<tr>
       <td>${student.name}</td>
       <td>${student.age}</td>
       <td>${majors[student.majorIndex].majorName}</td>
       <td>${student.semester}</td>
+      <td>${remaining}</td>
     </tr>`;
     })
     .join("");
@@ -127,6 +132,7 @@ function renderIndex(data) {
             <th>Age</th>
             <th>Major</th>
             <th>Semester</th>
+            <th>Remaining Semester</th>
           <thead>
         <tbody>
           ${renderStudentRows(students, majors)}
