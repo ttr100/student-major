@@ -27,7 +27,7 @@ app.post('/create-student', function(req, res){
 })
 
 app.post('/update-major', (req, res) => {
-  let i = parseInt(req.body.index);
+  let i = req.body.index;
   data.updateMajor(i, req.body);
 
   res.redirect("/");

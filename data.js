@@ -1,9 +1,12 @@
-let majors = [];
+// list => sequential access
+// object => direct access
+
+let majors = [
+];
 
 function listMajors(){
   return majors;
 }
-
 
 // Create and stores new major.
 // return new major if created, return null if not
@@ -14,18 +17,40 @@ function createMajor(newMajor){
     }
   }
 
-  majors.push(newMajor);
+  let key = generateKey();
+  newMajor['id'] = key;
+  majors.push(newMajor)
   return newMajor;
 }
 
+function generateKey(){
+  return String(Math.floor(Math.random() * 1000000));
+}
 
 function updateMajor(key, newData){
-    majors[key].majorName = newData.majorName;
-    majors[key].majorSemester = newData.majorSemester;
+  let index = getIndex(key);
+  if(index !== null){
+    majors[index].majorName = newData.majorName;
+    majors[index].majorSemester = newData.majorSemester;
+  }
 };
 
+function getIndex(key){
+  for(let i=0;i<majors.length;i++){
+    if(majors[i].id === key){
+      return i;
+    }
+  }
+
+  return null;
+}
+
 function getMajor(key){
-  return majors[key];
+  let index = getIndex(key);
+  if(index !== null){
+    return majors[index];
+  }
+  return null;
 }
 
 module.exports = {

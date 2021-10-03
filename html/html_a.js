@@ -25,7 +25,7 @@ function renderMajorRows(majors) {
       return `<tr>
       <form action="/update-major" method="POST">
         <td>
-          <input type="hidden" name="index" value="${index}" />
+          <input type="hidden" name="index" value="${major.id}" />
           <input name="majorName" value="${major.majorName}" />
         </td>
         <td><input name="majorSemester" value="${major.majorSemester}" /></td>
@@ -64,8 +64,8 @@ function renderStudentForm(majors) {
         <div class="control">
           <div class="select">
             <select name="majorIndex">
-                ${majors.map((major, index) => {
-                  return `<option value="${index}">${major.majorName}</option>`;
+                ${majors.map((major) => {
+                  return `<option value="${major.id}">${major.majorName}</option>`;
                 })}
             </select>
           </div>
