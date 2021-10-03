@@ -56,9 +56,23 @@ function getMajor(key){
   return null;
 }
 
+function deleteMajor(majorId, students)
+{
+    for(let i = 0; i<students.length; i++)
+    {
+        if(majorId === students[i].majorIndex)
+        {
+            return null;
+        }
+    }
+    let index = getIndex(majorId);
+    majors.splice(index, 1);
+}
+
 module.exports = {
   createMajor: createMajor,
   listMajors: listMajors,
   updateMajor: updateMajor,
-  getMajor: getMajor
+  getMajor: getMajor,
+  deleteMajor: deleteMajor
 }

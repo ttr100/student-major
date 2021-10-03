@@ -33,6 +33,12 @@ app.post('/update-major', (req, res) => {
   res.redirect("/");
 })
 
+app.post("/delete-major", (req, res) => {
+  console.log(req.body);
+  data.deleteMajor(req.body.id, students);
+  res.redirect("/");
+});
+
 app.post("/create-major", (req, res) => {
   data.createMajor(req.body);
   res.redirect("/");
