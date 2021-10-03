@@ -1,5 +1,6 @@
 const express = require('express');
 const html = require('./html/html_a');
+const data = require('./data');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.raw());
@@ -22,7 +23,7 @@ function getMajorIndex(majorName){
 app.get("/", (req, res) => {
   res.send(html.renderIndex({
     students: students,
-    majors: majors
+    majors: data.listMajors()
   }));
 });
 
@@ -43,38 +44,11 @@ app.post('/update-major', (req, res) => {
   majors[i].majorName = req.body.majorName;
   majors[i].majorSemester = req.body.majorSemester;
 
-  // search for student with majorName == originalMajorname
-  // // for eavery student found, change student.major
-
-  // for(let i=0; i < majors.length ; i++){
-  //   if(majors[i].majorName === req.body.originalName){
-  //     majors[i].majorName = req.body.majorName;
-  //     majors[i].majorSemester = req.body.majorSemester;
-  //     break;
-  //   }
-  // }
-
   res.redirect("/");
 })
 
 app.post("/create-major", (req, res) => {
-  let alreadyExist = false;
-  for(let i=0; i<majors.length; i++){
-    if(majors[i].majorName.toUpperCase() === req.body.majorName.toUpperCase()){
-      alreadyExist = true;
-      break;
-    }
-  }
-
-  // kalau nama major sudah ada, console.log('SUDAH ADA');
-  // kalau tidak, push ke majors
-  // req.body = {majorName: '', majorSemester: aasfa}
-  if(alreadyExist){
-    console.log('SUDAH ADA');
-  }
-  else{
-    majors.push(req.body);
-  }
+  data.createMajor(req.body);
   res.redirect("/");
 });
 
