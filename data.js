@@ -18,6 +18,11 @@ function createMajor(newMajor){
   return newMajor;
 }
 
+
+function updateMajor(key, newData){
+
+};
+
 module.exports = {
   createMajor: createMajor,
   listMajors: listMajors,

@@ -7,18 +7,6 @@ app.use(express.raw());
 const port = 3000;
 
 let students = [];
-let majors = [];
-
-
-function getMajorIndex(majorName){
-  for(let i=0; i < majors.length ; i++){
-    if(majors[i].majorName === majorName){
-      return i;
-    }
-  }
-  return -1;
-}
-
 
 app.get("/", (req, res) => {
   res.send(html.renderIndex({
@@ -39,10 +27,8 @@ app.post('/create-student', function(req, res){
 })
 
 app.post('/update-major', (req, res) => {
-  console.log(req.body);
   let i = parseInt(req.body.index);
-  majors[i].majorName = req.body.majorName;
-  majors[i].majorSemester = req.body.majorSemester;
+  data.updateMajor(i, req.body);
 
   res.redirect("/");
 })
