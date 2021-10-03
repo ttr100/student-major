@@ -1,6 +1,9 @@
 // list => sequential access
 // object => direct access
 
+// simpan sbg int, dan setiap data yg datang dari HTML harus parseInt
+// simpang sbg string
+
 let majors = [
 ];
 

@@ -31,6 +31,12 @@ function renderMajorRows(majors) {
         <td><input name="majorSemester" value="${major.majorSemester}" /></td>
         <td><button type="submit">Save</button></td>
       </form>
+      <form action="/delete-major" method="POST">
+        <td>
+          <input type="hidden" name="index" value="${major.id}" />
+        </td>
+        <td><button type="submit">Delete</button></td>
+      </form>
     </tr>`;
     })
     .join("");
