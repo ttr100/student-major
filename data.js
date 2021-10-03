@@ -20,10 +20,17 @@ function createMajor(newMajor){
 
 
 function updateMajor(key, newData){
-
+    majors[key].majorName = newData.majorName;
+    majors[key].majorSemester = newData.majorSemester;
 };
+
+function getMajor(key){
+  return majors[key];
+}
 
 module.exports = {
   createMajor: createMajor,
   listMajors: listMajors,
+  updateMajor: updateMajor,
+  getMajor: getMajor
 }

@@ -1,14 +1,17 @@
-function renderStudentRows(students, majors) {
+const data = require('../data');
+
+function renderStudentRows(students) {
   return students
     .map(function (student) {
-      let remaining = parseInt(majors[student.majorIndex].majorSemester) - parseInt(student.semester);
+      let studentMajor = data.getMajor(student.majorIndex);
+      let remaining = parseInt(studentMajor.majorSemester) - parseInt(student.semester);
       if(remaining <= 0){
         remaining = 'overdue'
       }
       return `<tr>
       <td>${student.name}</td>
       <td>${student.age}</td>
-      <td>${majors[student.majorIndex].majorName}</td>
+      <td>${studentMajor.majorName}</td>
       <td>${student.semester}</td>
       <td>${remaining}</td>
     </tr>`;
