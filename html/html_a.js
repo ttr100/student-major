@@ -113,16 +113,16 @@ function renderMajorForm() {
 }
 
 
-function renderError(shouldShowError){
-  if(shouldShowError){
-    return `<p class="notification is-danger">Error</p>`;
+function renderError(errorMsg){
+  if(errorMsg){
+    return `<p class="notification is-danger">${errorMsg}</p>`;
   }
   else{
     return ''
   }
 }
 
-function renderIndex(data, error=false) {
+function renderIndex(data, errorMessage='') {
   const students = data.students;
   const majors = data.majors;
   return /*html*/`
@@ -132,7 +132,7 @@ function renderIndex(data, error=false) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   </head>
   <body>
-    ${renderError(error)}
+    ${renderError(errorMessage)}
     <div class="columns">
       <div class="column">
           <h1 class="is-size-2">Student Form</h1>

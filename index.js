@@ -13,13 +13,16 @@ let students = [];
 
 
 app.get("/", (req, res) => {
-  let currentCookie = req.cookies.hasError;
-  res.clearCookie('hasError');
+  let errorMessage = req.cookies.errorMessage;
+  res.clearCookie('errorMessage');
 
-  res.send(html.renderIndex({
-    students: students,
-    majors: data.listMajors()
-  }, currentCookie === 'yes'));
+  res.send(html.renderIndex(
+    {
+      students: students,
+      majors: data.listMajors()
+    }, 
+    errorMessage
+  ));
 });
 
 app.post('/create-student', function(req, res){
@@ -43,13 +46,16 @@ app.post('/update-major', (req, res) => {
 app.post("/delete-major", (req, res) => {
   let result = data.deleteMajor(req.body.id, students);
   if(result == null){
-    res.cookie('hasError', 'yes');
+    res.cookie('errorMessage', 'Cannot delete major');
   }
   res.redirect("/");
 });
 
 app.post("/create-major", (req, res) => {
-  data.createMajor(req.body);
+  let result = data.createMajor(req.body);
+  if(result == null){
+    res.cookie('errorMessage', 'Cannot create major');
+  }
   res.redirect("/");
 });
 
