@@ -72,6 +72,8 @@ function renderIndex(data){
   </head>
   <body>
     <div class="columns">
+
+      <h2>Delete Failed</h2>
       <div class="column">
         <h1>Student Form</h1>
         <div class="studentForm">

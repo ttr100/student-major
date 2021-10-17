@@ -6,6 +6,7 @@
 
 let majors = [
 ];
+let runningNumbers = 0;
 
 function listMajors(){
   return majors;
@@ -21,13 +22,18 @@ function createMajor(newMajor){
   }
 
   let key = generateKey();
+
+
+
   newMajor['id'] = key;
   majors.push(newMajor)
   return newMajor;
 }
 
 function generateKey(){
-  return String(Math.floor(Math.random() * 1000000));
+  let id = runningNumbers;
+  runningNumbers += 1;
+  return String(id);
 }
 
 function updateMajor(key, newData){
@@ -67,6 +73,7 @@ function deleteMajor(majorId, students)
     }
     let index = getIndex(majorId);
     majors.splice(index, 1);
+    return index;
 }
 
 module.exports = {

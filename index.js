@@ -7,12 +7,16 @@ app.use(express.raw());
 const port = 3000;
 
 let students = [];
+let hasError = false;
+
 
 app.get("/", (req, res) => {
+  let currentlyHasError = hasError;
+  hasError = false;
   res.send(html.renderIndex({
     students: students,
     majors: data.listMajors()
-  }));
+  }, currentlyHasError));
 });
 
 app.post('/create-student', function(req, res){
@@ -34,8 +38,10 @@ app.post('/update-major', (req, res) => {
 })
 
 app.post("/delete-major", (req, res) => {
-  console.log(req.body);
-  data.deleteMajor(req.body.id, students);
+  let result = data.deleteMajor(req.body.id, students);
+  if(result == null){
+    hasError = true;
+  }
   res.redirect("/");
 });
 

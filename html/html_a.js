@@ -25,7 +25,7 @@ function renderMajorRows(majors) {
       return `<tr>
       <form action="/update-major" method="POST">
         <td>
-          <input type="hidden" name="index" value="${major.id}" />
+          <input type="text" name="index" value="${major.id}" />
           <input name="majorName" value="${major.majorName}" />
         </td>
         <td><input name="majorSemester" value="${major.majorSemester}" /></td>
@@ -33,7 +33,7 @@ function renderMajorRows(majors) {
       </form>
       <form action="/delete-major" method="POST">
         <td>
-          <input type="hidden" name="index" value="${major.id}" />
+          <input type="hidden" name="id" value="${major.id}" />
         </td>
         <td><button type="submit">Delete</button></td>
       </form>
@@ -112,7 +112,17 @@ function renderMajorForm() {
   `;
 }
 
-function renderIndex(data) {
+
+function renderError(shouldShowError){
+  if(shouldShowError){
+    return `<p class="notification is-danger">Error</p>`;
+  }
+  else{
+    return ''
+  }
+}
+
+function renderIndex(data, error=False) {
   const students = data.students;
   const majors = data.majors;
   return /*html*/`
@@ -122,6 +132,7 @@ function renderIndex(data) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   </head>
   <body>
+    ${renderError(error)}
     <div class="columns">
       <div class="column">
           <h1 class="is-size-2">Student Form</h1>
