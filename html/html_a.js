@@ -25,7 +25,7 @@ function renderMajorRows(majors) {
       return `<tr>
       <form action="/update-major" method="POST">
         <td>
-          <input type="text" name="index" value="${major.id}" />
+          <input type="hidden" name="index" value="${major.id}" />
           <input name="majorName" value="${major.majorName}" />
         </td>
         <td><input name="majorSemester" value="${major.majorSemester}" /></td>
@@ -122,7 +122,7 @@ function renderError(shouldShowError){
   }
 }
 
-function renderIndex(data, error=False) {
+function renderIndex(data, error=false) {
   const students = data.students;
   const majors = data.majors;
   return /*html*/`

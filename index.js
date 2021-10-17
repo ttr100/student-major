@@ -1,22 +1,25 @@
 const express = require('express');
+var cookieParser = require('cookie-parser')
+
 const html = require('./html/html_a');
 const data = require('./data');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.raw());
+app.use(cookieParser());
 const port = 3000;
 
 let students = [];
-let hasError = false;
 
 
 app.get("/", (req, res) => {
-  let currentlyHasError = hasError;
-  hasError = false;
+  let currentCookie = req.cookies.hasError;
+  res.clearCookie('hasError');
+
   res.send(html.renderIndex({
     students: students,
     majors: data.listMajors()
-  }, currentlyHasError));
+  }, currentCookie === 'yes'));
 });
 
 app.post('/create-student', function(req, res){
@@ -40,7 +43,7 @@ app.post('/update-major', (req, res) => {
 app.post("/delete-major", (req, res) => {
   let result = data.deleteMajor(req.body.id, students);
   if(result == null){
-    hasError = true;
+    res.cookie('hasError', 'yes');
   }
   res.redirect("/");
 });
